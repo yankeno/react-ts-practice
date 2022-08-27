@@ -7,6 +7,7 @@ import { Setting } from "../components/pages/Setting";
 import { UserManagemant } from "../components/pages/UserManagement";
 import { Page404 } from "../components/pages/Page404";
 import { HeaderLayout } from "../components/template/HeaderLayout";
+import { LoginUserProvider } from "../providers/LoginUserProvider";
 
 export const Router: FC = memo(() => {
   return (
@@ -16,43 +17,45 @@ export const Router: FC = memo(() => {
      *
      * ルートがネストしている場合は index-route を指定する
      */
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home">
-        <Route
-          index={true}
-          element={
-            <HeaderLayout>
-              <Home />
-            </HeaderLayout>
-          }
-        />
-        <Route
-          path="user_management"
-          element={
-            <HeaderLayout>
-              <UserManagemant />
-            </HeaderLayout>
-          }
-        />
-        <Route
-          path="setting"
-          element={
-            <HeaderLayout>
-              <Setting />
-            </HeaderLayout>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <HeaderLayout>
-              <Page404 />
-            </HeaderLayout>
-          }
-        />
-      </Route>
-      <Route path="*" element={<Page404 />} />
-    </Routes>
+    <LoginUserProvider>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home">
+          <Route
+            index={true}
+            element={
+              <HeaderLayout>
+                <Home />
+              </HeaderLayout>
+            }
+          />
+          <Route
+            path="user_management"
+            element={
+              <HeaderLayout>
+                <UserManagemant />
+              </HeaderLayout>
+            }
+          />
+          <Route
+            path="setting"
+            element={
+              <HeaderLayout>
+                <Setting />
+              </HeaderLayout>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <HeaderLayout>
+                <Page404 />
+              </HeaderLayout>
+            }
+          />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </LoginUserProvider>
   );
 });
